@@ -1,5 +1,5 @@
 {
-    "name": "mattmezza/slim-handlebars",
+    "name": "mattmezza/slim-handlebars-view",
     "type": "library",
     "description": "Handlebars View for Slim Framework",
     "keywords": ["templating", "extensions", "slimphp", "handlebars", "slim", "slimframework"],
