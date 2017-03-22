@@ -15,7 +15,7 @@
     ],
     "require": {
         "slim/slim": "^3.0",
-        "php": "^5.5.0",
+        "php": ">=5.5.0",
         "xamin/handlebars.php": "dev-master",
         "psr/http-message": "^1.0"
     },
