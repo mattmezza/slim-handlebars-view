@@ -9,6 +9,7 @@
 namespace Slim\Views;
 
 use Psr\Http\Message\ResponseInterface;
+use JustBlackBird\HandlebarsHelpers\Helpers;
 
 /**
  * Handlebars view
@@ -35,9 +36,11 @@ class Handlebars implements \ArrayAccess
     {
         $this->loader = new \Handlebars\Loader\FilesystemLoader($path, $settings);
         $this->partialsLoader = new \Handlebars\Loader\FilesystemLoader($path . '/' . $pathPartials, $settings);
+        $helpers = new Helpers();
         $this->environment = new \Handlebars\Handlebars(
               ["loader" => $this->loader,
-               "partials_loader" => $this->partialsLoader]);
+               "partials_loader" => $this->partialsLoader,
+               "helpers" => $helpers]);
     }
 
     /**
