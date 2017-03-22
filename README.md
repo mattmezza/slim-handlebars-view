@@ -1,84 +1,61 @@
-# Slim Handlebars
+# Slim Framework Handlebars View
 
-Repository built from original jayc89/slim-handlebars, kudos to jayc89 thank you for the great
-start. There was a bunch of things I needed with Handlebars and Slim that was not possible
-to do without modifying the orginal code. I added and made sure you can use custom extensions.
-I also added the ability to add your own helpers using a addHelper method.
-This repository contains a custom View class for Handlebars (https://github.com/mardix/Handlebars). 
-You can use the custom View class by either requiring the appropriate class in your 
-Slim Framework bootstrap file and initialize your Slim application using an instance of 
-the selected View class or using Composer (the recommended way).
+[![Build Status](https://travis-ci.org/mattmezza/slim-handlebars-view.svg?branch=master)](https://travis-ci.org/mattmezza/slim-handlebars-view)
 
+This is a Slim Framework view helper built on top of the Handlebars templating component. You can use this component to create and render templates in your Slim Framework application. It works with [handlebars.php by xamin project](https://github.com/XaminProject/handlebars.php).
 
-## How to Install
+## Install
 
-#### using [Composer](http://getcomposer.org/)
-
-Create a composer.json file in your project root:
-    
-```json
-{
-    "require": {
-        "radicaldrew/slim-handlebars": "dev-master"
-    }
-}
-```
-
-Then run the following composer command:
+Via [Composer](https://getcomposer.org/)
 
 ```bash
-$ php composer.phar install
+$ composer require mattmezza/slim-handlebars-view
 ```
 
-## How to use
-    
+Requires Slim Framework 3 and PHP 5.5.0 or newer.
+
+## Usage
+
 ```php
-<?php
-require 'vendor/autoload.php';
+// Create Slim app
+$app = new \Slim\App();
 
-$app = new \Slim\Slim(array(
-    'view' => new \Slim\Handlebars\Handlebars()
-));
+// Fetch DI Container
+$container = $app->getContainer();
+
+// Register Twig View helper
+$container['view'] = new \Slim\Views\Handlebars(
+    'path/to/templates',
+    'partials',
+    [
+        'extension' => 'hbs' // default is html
+    ]);
+
+// Define named route
+$app->get('/hello/{name}', function ($request, $response, $args) {
+    return $this->view->render($response, 'profile', [
+        'name' => $args['name']
+    ]);
+})->setName('profile');
+
+// Run app
+$app->run();
 ```
 
-To use Handlebars options do the following:
-    
-```php
-$view = $app->view();
-$view->setTemplatesDirectory('./views');
-$view->parserOptions = array(
-    'partialsDirectory' => './views/partials',
-    'templateExtension' => 'html'
-);
+## Testing
+
+```bash
+phpunit
 ```
 
-Templates (suffixed with .html in the example above) are assumed to be located within <doc root>/templates. An optional sub-directory of partials (<doc root>/templates/partials) can also be used.
+## Contributing
 
-To render the templates within your routes:
-    
-```php
-$app->get('/', function () use ($app) {
-    $array = array();
-    $app->render("home", $array);
-});
-```
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## How to add Registered Helpers
-```php
-$view = $app->view();
-$view->addHelper("upper",function($template, $context, $args, $source){
-                                return strtoupper($context->get($args));
-                         });
-```
+## Credits
 
-
-
-## Authors
-[Andrew Karp](https://github.com/radicaldrew)
-
-based on this original repistory
-[Jamie Cressey](https://github.com/jayc89)
+- [Matteo Merola](https://github.com/mattmezza)
 
 ## License
 
-MIT Public License
+The MIT License (MIT). Please see [License File](license.md) for more information.

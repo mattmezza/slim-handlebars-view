@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 jayc89 & Matteo Merola
+Copyright (c) 2017 Matteo Merola
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
