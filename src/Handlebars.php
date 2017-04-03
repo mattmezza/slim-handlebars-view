@@ -167,7 +167,7 @@ class Handlebars implements \ArrayAccess
      */
     public function addHelper($name, $function)
     {
-        $env = $this->getInstance();
+        $env = $this->getEnvironment();
         $env->addHelper($name,$function);
     }
 }
